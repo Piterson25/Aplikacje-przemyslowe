@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>App</title>
+</head>
+<body>
+<div>
+    <h1>Użytkownicy:</h1>
+    <table>
+        <th>
+        <td> Imię </td>
+        <td> Wiek </td>
+        <td> Typ </td>
+        <td> Ilość dni od rejestracji </td>
+        </th>
+        <tr th:each="user, iter: ${users}">
+            <td th:text="${iter.index + 1}" />
+            <td th:text="${user.name}" />
+            <td th:text="${user.age}" />
+            <td th:switch="${user.userType}">
+                <span th:case="${user.UserType.GUEST}"> Gość </span>
+                <span th:case="${user.UserType.REGISTERED}"> Zarejestrowany </span>
+                <span th:case="${user.UserType.ADMIN}"> Admin </span>
+            </td>
+            <td th:text="${#dates.createNow().getTime() / 1000 / 60 / 60 / 24 - user.getRegistrationDate().getTime() / 1000 / 60 / 60 / 24}"
+        </tr>
+    </table>
+</div>
+</body>
+</html>
